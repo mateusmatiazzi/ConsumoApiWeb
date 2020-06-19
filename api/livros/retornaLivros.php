@@ -15,7 +15,6 @@ $quantidadeDeLivrosNoBancoDeDados = $listaDeLivros->rowCount();
 
 if($quantidadeDeLivrosNoBancoDeDados > 0){
     $livrosArray = array();
-    $livrosArray["livros"] = array();
 
     while($linha = $listaDeLivros->fetch(PDO::FETCH_ASSOC)){
         extract($linha);
@@ -27,7 +26,7 @@ if($quantidadeDeLivrosNoBancoDeDados > 0){
             "nomeDoAutor" => $nomeDoAutor
         );
 
-        array_push($livrosArray["livros"], $livro_item);
+        array_push($livrosArray, $livro_item);
     }
 
     http_response_code(200);

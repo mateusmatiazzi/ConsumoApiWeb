@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livro_livroId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livro_autorId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livro_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livro_dataDePublicacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livro_nomeDoAutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"/>
+
+
+
+</LinearLayout>

@@ -1,11 +1,11 @@
-<?
+<?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '../config/database.php';
-include_once '../objetos/livros.php';
+include_once '../config/bancoDeDados.php';
+include_once '../objetos/livro.php';
 
-$bancoDeDados = new Database();
+$bancoDeDados = new BancoDeDados();
 $conexaoComBancoDeDados = $bancoDeDados->getConexaoComBancoDeDados();
 
 $livro = new Livro($conexaoComBancoDeDados);
@@ -15,7 +15,7 @@ $quantidadeDeLivrosNoBancoDeDados = $listaDeLivros->rowCount();
 
 if($quantidadeDeLivrosNoBancoDeDados > 0){
     $livrosArray = array();
-    $livrosArray["records"] = array();
+    $livrosArray["livros"] = array();
 
     while($linha = $listaDeLivros->fetch(PDO::FETCH_ASSOC)){
         extract($linha);
@@ -27,7 +27,7 @@ if($quantidadeDeLivrosNoBancoDeDados > 0){
             "nomeDoAutor" => $nomeDoAutor
         );
 
-        array_push($livrosArray["records", $livro_item]);
+        array_push($livrosArray["livros"], $livro_item);
     }
 
     http_response_code(200);

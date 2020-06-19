@@ -2,15 +2,15 @@ CREATE TABLE IF NOT EXISTS autor (
   autorId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nome varchar(256) NOT NULL,
   dataDeNascimento datetime NOT NULL
-);
+)CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS livros (
   livroId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   autorId INT,
   titulo varchar(256) NOT NULL,
   dataDePublicacao datetime,
-  FOREIGN KEY (autor_id) REFERENCES autor(autor_id)
-);
+  FOREIGN KEY (autorId) REFERENCES autor(autorId)
+)CHARSET=utf8;
 
 INSERT INTO autor (autorId, nome, dataDeNascimento) VALUES
 (1, 'William Shakespeare', '1564-04-26 00:00:00'),

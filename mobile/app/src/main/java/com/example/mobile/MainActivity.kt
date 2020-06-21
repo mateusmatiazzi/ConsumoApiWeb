@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     var stringDeLivros = ""
                     for (i in response.body()!!){
-                        stringDeLivros += "${i.nomeDoAutor} publicou ${i.titulo} em ${i.dataDePublicacao}\n\n"
+                        stringDeLivros += "${i.nomeDoAutor} publicou '${i.titulo}' em ${i.dataDePublicacao}\n\n"
                     }
                     textView.text = stringDeLivros
                 }

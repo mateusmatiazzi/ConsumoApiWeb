@@ -30,7 +30,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<Livros>>, response: Response<List<Livros>>) {
-                textView.text = response.body().toString()
+                if (response.isSuccessful) {
+                    var stringDeLivros = ""
+                    for (i in response.body()!!){
+                        stringDeLivros += "${i.nomeDoAutor} publicou ${i.titulo} em ${i.dataDePublicacao}\n\n"
+                    }
+                    textView.text = stringDeLivros
+                }
+                else{
+                    textView.text = "Nenhum livro encontrado"
+                }
             }
         })
 

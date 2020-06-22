@@ -3,7 +3,7 @@ class BancoDeDados{
     private $host = "localhost";
     private $nomeDoBanco = "api";
     private $username = "root";
-    private $password = "#lialab";
+    private $password = "";
     public $conexaoComBancoDeDados;
 
     public function getConexaoComBancoDeDados(){

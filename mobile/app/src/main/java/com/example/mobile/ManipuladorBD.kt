@@ -2,37 +2,28 @@ package com.example.mobile
 
 import android.content.Context
 import io.realm.Realm
-import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import retrofit2.Response
 
 class ManipuladorBD(context: Context) {
 
-    lateinit var realm : Realm
+    var realm : Realm
 
     init {
         Realm.init(context)
         realm = Realm.getDefaultInstance()
     }
 
-    public fun armazenaAutoresNoBancoDeDados(response: Response<List<ApiDataLivros>>) {
-        val nomeDosAutores = mutableListOf<String>()
+    fun armazenaAutoresNoBancoDeDados(response: Response<List<ApiDataLivros>>) {
         realm.beginTransaction()
-
-        var autorASerAdicionado: Autor
         for (autorNaApi in response.body()!!) {
-            if (!nomeDosAutores.contains(autorNaApi.nomeDoAutor)) {
-
-                autorASerAdicionado = realm.createObject<Autor>(autorNaApi.autorId)
-                autorASerAdicionado.nomeDoAutor = autorNaApi.nomeDoAutor
-
-                nomeDosAutores.add(autorNaApi.nomeDoAutor)
-            }
+                realm.insertOrUpdate(Autor(autorId = autorNaApi.autorId,
+                                           nomeDoAutor = autorNaApi.nomeDoAutor))
         }
         realm.commitTransaction()
     }
 
-    public fun armazenaLivrosNoBancoDeDados(response: Response<List<ApiDataLivros>>) {
+    fun armazenaLivrosNoBancoDeDados(response: Response<List<ApiDataLivros>>) {
         realm.beginTransaction()
         var autorDoLivroASerAdicionado: Autor
 
@@ -46,7 +37,7 @@ class ManipuladorBD(context: Context) {
         realm.commitTransaction()
     }
 
-    public fun imprimeAutoresELivros() : String {
+    fun imprimeAutoresELivros() : String {
         val todosAutoresArmazenados = realm.where<Autor>().findAll()
         var listaDeAutoreEPublicacoes : String = ""
 
@@ -58,10 +49,6 @@ class ManipuladorBD(context: Context) {
             listaDeAutoreEPublicacoes += "\n"
         }
         return listaDeAutoreEPublicacoes
-    }
-
-    public fun bancoDeDadosVazio() : Boolean {
-        return realm.isEmpty
     }
 
 }

@@ -27,4 +27,5 @@ INSERT INTO livros (livroId, autorId, titulo, dataDePublicacao) VALUES
 (5, 2, 'The Hollow', '1946-01-01 00:00:00'),
 (6, 3, 'Blood Money', '1926-01-01 00:00:00'),
 (7, 4, 'Max Runs Away', '1990-01-01 00:00:00'),
-(8, 4, 'Max and Grandma and Grampa Winky', '1991-01-01 00:00:00');
+(8, 4, 'Max and Grandma and Grampa Winky', '1991-01-01 00:00:00'),
+(9, 4, 'The Cast', '2018-01-01 00:00:00');

@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey
 
 open class Autor (
     @PrimaryKey
-    var autorId: Long = 0,
+    var autorId: Int = 0,
     var nomeDoAutor : String = "",
 
     var livrosPublicados: RealmList<Livro> = RealmList()

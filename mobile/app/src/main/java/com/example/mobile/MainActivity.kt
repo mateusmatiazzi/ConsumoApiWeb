@@ -33,14 +33,9 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<ApiDataLivros>>, response: Response<List<ApiDataLivros>>) {
                 if (response.isSuccessful) {
-                    if(manipuladorBd.bancoDeDadosVazio()){
-                        manipuladorBd.armazenaAutoresNoBancoDeDados(response)
-                        manipuladorBd.armazenaLivrosNoBancoDeDados(response)
-                    }
-                    else{
-                        textView.text = manipuladorBd.imprimeAutoresELivros()
-                    }
-
+                    manipuladorBd.armazenaAutoresNoBancoDeDados(response)
+                    manipuladorBd.armazenaLivrosNoBancoDeDados(response)
+                    textView.text = manipuladorBd.imprimeAutoresELivros()
                 }
             }
         })

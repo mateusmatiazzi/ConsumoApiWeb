@@ -1,4 +1,4 @@
-package com.example.mobile
+package com.example.mobile.modelo
 
 import io.realm.RealmList
 import io.realm.RealmObject

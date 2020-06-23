@@ -2,6 +2,10 @@ package com.example.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mobile.BD.ManipuladorBD
+import com.example.mobile.api.ApiDataLivros
+import com.example.mobile.api.Endpoint
+import com.example.mobile.api.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         val endpoint = retrofitClient.create(Endpoint::class.java)
         val callback = endpoint.getLivros()
 
-        val manipuladorBd : ManipuladorBD = ManipuladorBD(this)
+        val manipuladorBd : ManipuladorBD =
+            ManipuladorBD(this)
 
         callback.enqueue(object : Callback<List<ApiDataLivros>> {
             override fun onFailure(call: Call<List<ApiDataLivros>>, t: Throwable) {

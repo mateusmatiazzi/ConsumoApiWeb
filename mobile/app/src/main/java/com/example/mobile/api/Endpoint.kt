@@ -1,4 +1,4 @@
-package com.example.mobile
+package com.example.mobile.api
 
 import retrofit2.Call
 import retrofit2.http.GET

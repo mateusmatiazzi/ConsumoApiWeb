@@ -11,6 +11,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    val ipDoServidor = "http://192.168.0.100"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getData() {
         val retrofitClient = NetworkUtils
-            .getRetrofitInstance("http://192.168.100.105")
+            .getRetrofitInstance(ipDoServidor)
 
         val endpoint = retrofitClient.create(Endpoint::class.java)
         val callback = endpoint.getLivros()

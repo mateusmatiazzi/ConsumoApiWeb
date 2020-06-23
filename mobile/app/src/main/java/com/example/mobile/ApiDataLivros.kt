@@ -2,7 +2,7 @@ package com.example.mobile
 
 import com.google.gson.annotations.SerializedName
 
-data class Livros(
+data class ApiDataLivros(
     @SerializedName("livroId")
     var livroId : Int,
     @SerializedName("autorId")

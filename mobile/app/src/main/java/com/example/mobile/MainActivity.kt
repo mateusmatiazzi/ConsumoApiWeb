@@ -2,7 +2,6 @@ package com.example.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
@@ -41,46 +40,55 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<ApiDataLivros>>, response: Response<List<ApiDataLivros>>) {
                 if (response.isSuccessful) {
-                    var nomeDosAutores = mutableListOf<String>()
-                    realm.beginTransaction()
-
-                    //armazena o nome dos autores
-                    var autor : Autor
-                    for (i in response.body()!!){
-                        if(!nomeDosAutores.contains(i.nomeDoAutor)){
-
-                            autor = realm.createObject<Autor>(i.autorId)
-                            autor.nomeDoAutor = i.nomeDoAutor
-
-                            nomeDosAutores.add(i.nomeDoAutor)
-                        }
+                    if(realm.isEmpty){
+                        armazenaAutoresNoBancoDeDados(realm, response)
+                        armazenaLivrosNoBancoDeDados(realm, response)
                     }
-                    realm.commitTransaction()
-
-                    //armazena o nome dos livros
-                    realm.beginTransaction()
-                    var livro : Livro
-                    for (i in response.body()!!){
-                        livro = realm.createObject<Livro>(i.livroId)
-                        livro.titulo = i.titulo
-                        livro.dataDePublicacao = i.dataDePublicacao
-
-                        autor = realm.where<Autor>().equalTo("nomeDoAutor", i.nomeDoAutor).findFirst()!!
-                        autor.livrosPublicados.add(livro)
+                    else{
+                        val quantidadeDeAutoresArmazenados = realm.where<Autor>().findAll()
+                        textView.text = quantidadeDeAutoresArmazenados.toString()
                     }
-                    realm.commitTransaction()
 
-                    val quantidadeDeAutoresArmazenados = realm.where<Autor>().findAll()
-
-                    textView.text = quantidadeDeAutoresArmazenados.toString()
-
-                }
-                else{
-                    textView.text = "Nenhum livro encontrado"
                 }
             }
         })
 
+    }
+
+    private fun armazenaAutoresNoBancoDeDados(realm: Realm, response: Response<List<ApiDataLivros>>) {
+        val nomeDosAutores = mutableListOf<String>()
+        realm.beginTransaction()
+
+        //armazena o nome dos autores
+        var autorASerAdicionado: Autor
+        for (autorNaApi in response.body()!!) {
+            if (!nomeDosAutores.contains(autorNaApi.nomeDoAutor)) {
+
+                autorASerAdicionado = realm.createObject<Autor>(autorNaApi.autorId)
+                autorASerAdicionado.nomeDoAutor = autorNaApi.nomeDoAutor
+
+                nomeDosAutores.add(autorNaApi.nomeDoAutor)
+            }
+        }
+        realm.commitTransaction()
+    }
+
+    private fun armazenaLivrosNoBancoDeDados(realm: Realm, response: Response<List<ApiDataLivros>>) {
+        //armazena o nome dos livros
+        realm.beginTransaction()
+
+        var livroASerAdicionado: Livro
+        var autorDoLivroASerAdicionado: Autor
+
+        for (livroNaApi in response.body()!!) {
+            livroASerAdicionado = realm.createObject<Livro>(livroNaApi.livroId)
+            livroASerAdicionado.titulo = livroNaApi.titulo
+            livroASerAdicionado.dataDePublicacao = livroNaApi.dataDePublicacao
+
+            autorDoLivroASerAdicionado = realm.where<Autor>().equalTo("nomeDoAutor", livroNaApi.nomeDoAutor).findFirst()!!
+            autorDoLivroASerAdicionado.livrosPublicados.add(livroASerAdicionado)
+        }
+        realm.commitTransaction()
     }
 
 }
